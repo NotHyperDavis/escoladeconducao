@@ -1,0 +1,6 @@
+127.0.0.1 - - [11/Sep/2026:16:09:35 +0100] "GET /alunos HTTP/1.1" 404 775
+127.0.0.1 - - [11/Sep/2026:16:09:41 +0100] "GET /api/alunos HTTP/1.1" 200 12
+127.0.0.1 - - [11/Sep/2026:16:11:16 +0100] "POST /api/alunos HTTP/1.1" 201 18
+127.0.0.1 - - [11/Sep/2026:16:11:28 +0100] "GET /api/alunos/id=?1 HTTP/1.1" 404 -
+127.0.0.1 - - [11/Sep/2026:16:12:16 +0100] "POST /api/alunos/?nome=David&email=33porto%40gmail.com&telefone=916095417 HTTP/1.1" 201 85
+127.0.0.1 - - [11/Sep/2026:16:12:29 +0100] "GET /api/alunos/?nome=David&email=33porto%40gmail.com&telefone=916095417 HTTP/1.1" 200 96

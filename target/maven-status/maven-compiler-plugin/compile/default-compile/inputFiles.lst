@@ -1,1 +1,5 @@
-/mnt/c/Users/David/jmd-java/Projeto/escoladeconducao/src/main/java/com/escoladeconducao/App.java
+/mnt/c/Users/David/jmd-java/Projeto/escoladeconducao/src/main/java/com/escoladeconducao/Aluno.java
+/mnt/c/Users/David/jmd-java/Projeto/escoladeconducao/src/main/java/com/escoladeconducao/AppPath.java
+/mnt/c/Users/David/jmd-java/Projeto/escoladeconducao/src/main/java/com/escoladeconducao/controller/AlunoController.java
+/mnt/c/Users/David/jmd-java/Projeto/escoladeconducao/src/main/java/com/escoladeconducao/repository/AlunoRepository.java
+/mnt/c/Users/David/jmd-java/Projeto/escoladeconducao/src/main/java/com/escoladeconducao/service/AlunoService.java

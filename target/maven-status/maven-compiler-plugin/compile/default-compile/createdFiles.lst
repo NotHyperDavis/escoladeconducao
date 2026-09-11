@@ -1,1 +1,5 @@
-com/escoladeconducao/App.class
+com/escoladeconducao/AppPath.class
+com/escoladeconducao/controller/AlunoController.class
+com/escoladeconducao/repository/AlunoRepository.class
+com/escoladeconducao/service/AlunoService.class
+com/escoladeconducao/Aluno.class
