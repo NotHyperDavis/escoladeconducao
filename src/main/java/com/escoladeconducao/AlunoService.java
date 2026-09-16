@@ -1,7 +1,5 @@
-package com.escoladeconducao.service;
+package com.escoladeconducao;
 
-import com.escoladeconducao.Aluno;
-import com.escoladeconducao.repository.AlunoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

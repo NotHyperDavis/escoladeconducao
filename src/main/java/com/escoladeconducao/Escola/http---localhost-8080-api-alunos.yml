@@ -5,7 +5,23 @@ info:
 
 http:
   method: GET
-  url: ""
+  url: http://localhost:8080/api/alunos/?nome=David&email=33porto@gmail.com&telefone=916095417
+  params:
+    - name: nome
+      value: David
+      type: query
+    - name: email
+      value: 33porto@gmail.com
+      type: query
+    - name: telefone
+      value: "916095417"
+      type: query
+  body:
+    type: text
+    data: |
+      nome = David
+      email = coco@coco.com
+      telefone = 916095417
   auth: inherit
 
 settings:

@@ -1,6 +1,5 @@
-package com.escoladeconducao.repository;
+package com.escoladeconducao;
 
-import com.escoladeconducao.Aluno;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

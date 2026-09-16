@@ -1,7 +1,5 @@
-package com.escoladeconducao.controller;
+package com.escoladeconducao;
 
-import com.escoladeconducao.Aluno;
-import com.escoladeconducao.service.AlunoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
