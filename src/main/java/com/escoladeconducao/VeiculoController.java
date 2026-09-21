@@ -3,10 +3,12 @@ package com.escoladeconducao;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
 @Path("/veiculos")
+@Produces(MediaType.APPLICATION_JSON)
 public class VeiculoController {
     @Inject
     private VeiculoService veiculoService;

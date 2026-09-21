@@ -3,6 +3,7 @@ package com.escoladeconducao;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.ws.rs.core.MediaType;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Escola de Condução</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, Arial, sans-serif;
+    background: #f4f5f7;
+    color: #222;
+    margin: 0;
+    padding: 24px;
+  }
+  h1 { text-align: center; margin-bottom: 4px; }
+  p.subtitle { text-align: center; color: #666; margin-top: 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 24px auto;
+  }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .card h2 { margin-top: 0; font-size: 1.1rem; }
+  .card form { display: flex; flex-direction: column; gap: 8px; }
+  .card input, .card select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  .card button {
+    margin-top: 4px;
+    padding: 9px;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .card button.secondary {
+    background: #e5e7eb;
+    color: #222;
+  }
+  .card button:hover { opacity: 0.9; }
+  .resultado {
+    margin-top: 10px;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #f9fafb;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+  }
+  .msg { font-size: 0.85rem; margin-top: 4px; }
+  .msg.ok { color: #16a34a; }
+  .msg.erro { color: #dc2626; }
+</style>
+</head>
+<body>
+
+<h1>Escola de Condução</h1>
+<p class="subtitle">Página de teste da API (Alunos, Instrutores, Veículos e Aulas)</p>
+
+<div class="grid">
+
+  <!-- ALUNO -->
+  <div class="card">
+    <h2>Aluno</h2>
+    <form id="form-aluno">
+      <input type="text" name="nome" placeholder="Nome" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="telefone" placeholder="Telefone" required>
+      <button type="submit">Criar aluno</button>
+    </form>
+    <div class="msg" id="msg-aluno"></div>
+    <button class="secondary" onclick="listar('alunos')">Listar alunos</button>
+    <div class="resultado" id="resultado-alunos"></div>
+  </div>
+
+  <!-- INSTRUTOR -->
+  <div class="card">
+    <h2>Instrutor</h2>
+    <form id="form-instrutor">
+      <input type="text" name="nome" placeholder="Nome" required>
+      <input type="text" name="categoriasHabilitado" placeholder="Categorias (ex: B, A1)" required>
+      <button type="submit">Criar instrutor</button>
+    </form>
+    <div class="msg" id="msg-instrutor"></div>
+    <button class="secondary" onclick="listar('instrutores')">Listar instrutores</button>
+    <div class="resultado" id="resultado-instrutores"></div>
+  </div>
+
+  <!-- VEICULO -->
+  <div class="card">
+    <h2>Veículo</h2>
+    <form id="form-veiculo">
+      <input type="text" name="matricula" placeholder="Matrícula" required>
+      <input type="text" name="categoria" placeholder="Categoria (ex: B)" required>
+      <input type="text" name="estado" placeholder="Estado (ex: DISPONIVEL)" required>
+      <button type="submit">Criar veículo</button>
+    </form>
+    <div class="msg" id="msg-veiculo"></div>
+    <button class="secondary" onclick="listar('veiculos')">Listar veículos</button>
+    <div class="resultado" id="resultado-veiculos"></div>
+  </div>
+
+  <!-- AULA -->
+  <div class="card">
+    <h2>Aula</h2>
+    <form id="form-aula">
+      <input type="number" name="alunoId" placeholder="ID do aluno" required>
+      <input type="number" name="instrutorId" placeholder="ID do instrutor" required>
+      <input type="number" name="veiculoId" placeholder="ID do veículo (vazio se teórica)">
+      <select name="tipo">
+        <option value="TEORICA">Teórica</option>
+        <option value="PRATICA">Prática</option>
+      </select>
+      <input type="datetime-local" name="dataHoraInicio" required>
+      <input type="datetime-local" name="dataHoraFim" required>
+      <button type="submit">Marcar aula</button>
+    </form>
+    <div class="msg" id="msg-aula"></div>
+    <button class="secondary" onclick="listar('aulas')">Listar aulas</button>
+    <div class="resultado" id="resultado-aulas"></div>
+  </div>
+
+</div>
+
+<script>
+const BASE = "/api";
+
+async function listar(recurso) {
+  const div = document.getElementById("resultado-" + recurso);
+  div.textContent = "A carregar...";
+  try {
+    const res = await fetch(`${BASE}/${recurso}`);
+    const dados = await res.json();
+    div.textContent = JSON.stringify(dados, null, 2);
+  } catch (e) {
+    div.textContent = "Erro ao carregar: " + e;
+  }
+}
+
+function mostrarMensagem(id, texto, ok) {
+  const el = document.getElementById(id);
+  el.textContent = texto;
+  el.className = "msg " + (ok ? "ok" : "erro");
+}
+
+async function criar(recurso, params, msgId, formEl) {
+  const query = new URLSearchParams(params).toString();
+  try {
+    const res = await fetch(`${BASE}/${recurso}?${query}`, { method: "POST" });
+    if (res.status === 201) {
+      mostrarMensagem(msgId, "Criado com sucesso!", true);
+      formEl.reset();
+      listar(recurso);
+    } else {
+      const texto = await res.text();
+      mostrarMensagem(msgId, `Erro (${res.status}): ${texto || "não foi possível criar"}`, false);
+    }
+  } catch (e) {
+    mostrarMensagem(msgId, "Erro de rede: " + e, false);
+  }
+}
+
+document.getElementById("form-aluno").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  criar("alunos", {
+    nome: f.get("nome"),
+    email: f.get("email"),
+    telefone: f.get("telefone")
+  }, "msg-aluno", e.target);
+});
+
+document.getElementById("form-instrutor").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  criar("instrutores", {
+    nome: f.get("nome"),
+    categoriasHabilitado: f.get("categoriasHabilitado")
+  }, "msg-instrutor", e.target);
+});
+
+document.getElementById("form-veiculo").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  criar("veiculos", {
+    matricula: f.get("matricula"),
+    categoria: f.get("categoria"),
+    estado: f.get("estado")
+  }, "msg-veiculo", e.target);
+});
+
+document.getElementById("form-aula").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const params = {
+    alunoId: f.get("alunoId"),
+    instrutorId: f.get("instrutorId"),
+    tipo: f.get("tipo"),
+    dataHoraInicio: f.get("dataHoraInicio"),
+    dataHoraFim: f.get("dataHoraFim")
+  };
+  if (f.get("veiculoId")) params.veiculoId = f.get("veiculoId");
+  criar("aulas", params, "msg-aula", e.target);
+});
+</script>
+
+</body>
+</html>

@@ -3,11 +3,13 @@ package com.escoladeconducao;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("/aulas")
+@Produces(MediaType.APPLICATION_JSON)
 public class AulaController {
     @Inject
     private AulaService aulaService;

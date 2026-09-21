@@ -3,10 +3,14 @@ package com.escoladeconducao;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
+
+
 
 import java.util.List;
 
 @Path("/alunos")
+@Produces(MediaType.APPLICATION_JSON)
 public class AlunoController {
     @Inject
     private AlunoService alunoService;
