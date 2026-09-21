@@ -15,7 +15,7 @@ public class InstrutorRepository {
         return em.createQuery("select i from Instrutor i", Instrutor.class).getResultList();
     }
 
-    public Instrutor getById(Long id) {
+    public Instrutor getById(int id) {
         return em.find(Instrutor.class, id);
     }
 

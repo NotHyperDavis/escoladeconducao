@@ -16,7 +16,7 @@ public class AulaRepository {
         return em.createQuery("select a from Aula a", Aula.class).getResultList();
     }
 
-    public Aula getById(Long id) {
+    public Aula getById(int id) {
         return em.find(Aula.class, id);
     }
 

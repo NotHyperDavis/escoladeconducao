@@ -15,7 +15,7 @@ public class VeiculoRepository {
         return em.createQuery("select v from Veiculo v", Veiculo.class).getResultList();
     }
 
-    public Veiculo getById(Long id) {
+    public Veiculo getById(int id) {
         return em.find(Veiculo.class, id);
     }
 

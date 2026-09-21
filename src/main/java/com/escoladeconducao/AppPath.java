@@ -9,6 +9,6 @@ import java.util.Set;
 public class AppPath extends Application {
     @Override
     public Set<Class<?>> getClasses() {
-        return Set.of(AlunoController.class, InstrutorController.class, VeiculoController.class);
+    return Set.of(AlunoController.class, InstrutorController.class, VeiculoController.class, AulaController.class);
     }
 }

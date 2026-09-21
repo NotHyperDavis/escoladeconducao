@@ -15,7 +15,7 @@ public class AlunoRepository {
         return em.createQuery("select a from Aluno a", Aluno.class).getResultList();
     }
 
-    public Aluno getById(Long id) {
+    public Aluno getById(int id) {
         return em.find(Aluno.class, id);
     }
 
