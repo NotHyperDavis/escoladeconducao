@@ -12,10 +12,10 @@
 </header>
 
 <nav>
+  <button class="tab-btn" data-tab="aulas">Aulas</button>
   <button class="tab-btn active" data-tab="alunos">Alunos</button>
   <button class="tab-btn" data-tab="instrutores">Instrutores</button>
   <button class="tab-btn" data-tab="veiculos">Veículos</button>
-  <button class="tab-btn" data-tab="aulas">Aulas</button>
 </nav>
 
 <main>
@@ -78,15 +78,23 @@
     <h2>Aulas</h2>
     <div class="msg" id="msg-aulas"></div>
     <form class="form-registo" id="form-aulas">
-      <input type="number" name="alunoId" placeholder="ID do aluno" required>
-      <input type="number" name="instrutorId" placeholder="ID do instrutor" required>
-      <input type="number" name="veiculoId" placeholder="ID do veículo (opcional)">
+      <select name="alunoId" required>
+        <option value="">Aluno...</option>
+      </select>
+      <select name="instrutorId" required>
+        <option value="">Instrutor...</option>
+      </select>
+      <select name="veiculoId">
+        <option value="">Sem veículo (teórica)</option>
+      </select>
       <select name="tipo">
         <option value="TEORICA">Teórica</option>
         <option value="PRATICA">Prática</option>
       </select>
-      <input type="datetime-local" name="dataHoraInicio" required>
-      <input type="datetime-local" name="dataHoraFim" required>
+      <input type="date" name="data" required>
+      <select name="horario" required>
+        <option value="">Horário...</option>
+      </select>
       <button type="submit">Marcar aula</button>
     </form>
     <table>

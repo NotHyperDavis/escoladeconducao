@@ -16,6 +16,17 @@ function mostrarMensagem(recurso, texto, ok) {
   el.className = "msg " + (ok ? "ok" : "erro");
 }
 
+// Preenche um <select> com base numa lista, preservando a seleção atual se ainda existir
+function popularSelect(seletor, itens, textoFn, opcaoVazia) {
+  const select = document.querySelector(seletor);
+  const valorAtual = select.value;
+  select.innerHTML = `<option value="">${opcaoVazia}</option>` +
+    itens.map(item => `<option value="${item.id}">${textoFn(item)}</option>`).join("");
+  if ([...select.options].some(o => o.value === valorAtual)) {
+    select.value = valorAtual;
+  }
+}
+
 // ================= ALUNOS =================
 async function carregarAlunos() {
   const res = await fetch(`${BASE}/alunos`);
@@ -37,6 +48,7 @@ async function carregarAlunos() {
     tr.querySelector(".apagar").addEventListener("click", () => apagarAluno(a.id));
     tbody.appendChild(tr);
   });
+  popularSelect('#form-aulas select[name="alunoId"]', alunos, a => `#${a.id} — ${a.nome}`, "Aluno...");
 }
 
 function editarAluno(a) {
@@ -110,6 +122,7 @@ async function carregarInstrutores() {
     tr.querySelector(".apagar").addEventListener("click", () => apagarInstrutor(i.id));
     tbody.appendChild(tr);
   });
+  popularSelect('#form-aulas select[name="instrutorId"]', instrutores, i => `#${i.id} — ${i.nome}`, "Instrutor...");
 }
 
 function editarInstrutor(i) {
@@ -182,6 +195,7 @@ async function carregarVeiculos() {
     tr.querySelector(".apagar").addEventListener("click", () => apagarVeiculo(v.id));
     tbody.appendChild(tr);
   });
+  popularSelect('#form-aulas select[name="veiculoId"]', veiculos, v => `#${v.id} — ${v.matricula}`, "Sem veículo (teórica)");
 }
 
 function editarVeiculo(v) {
@@ -242,6 +256,24 @@ document.querySelector("#form-veiculos .cancelar").addEventListener("click", res
 
 const ESTADOS_AULA = ["MARCADA", "REALIZADA", "CANCELADA"];
 
+// Blocos horários pré-definidos (podes ajustar conforme o horário real da escola)
+const HORARIOS = [
+  ["09:00", "10:00"],
+  ["10:00", "11:00"],
+  ["11:00", "12:00"],
+  ["14:00", "15:00"],
+  ["15:00", "16:00"],
+  ["16:00", "17:00"],
+  ["17:00", "18:00"],
+  ["18:00", "19:00"]
+];
+
+function popularHorarios() {
+  const select = document.querySelector('#form-aulas select[name="horario"]');
+  select.innerHTML = '<option value="">Horário...</option>' +
+    HORARIOS.map(([inicio, fim]) => `<option value="${inicio},${fim}">${inicio} - ${fim}</option>`).join("");
+}
+
 async function carregarAulas() {
   const res = await fetch(`${BASE}/aulas`);
   const aulas = await res.json();
@@ -292,12 +324,19 @@ async function apagarAula(id) {
 document.getElementById("form-aulas").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
+
+  if (!form.horario.value) {
+    mostrarMensagem("aulas", "Escolhe um horário.", false);
+    return;
+  }
+  const [horaInicio, horaFim] = form.horario.value.split(",");
+
   const params = {
     alunoId: form.alunoId.value,
     instrutorId: form.instrutorId.value,
     tipo: form.tipo.value,
-    dataHoraInicio: form.dataHoraInicio.value,
-    dataHoraFim: form.dataHoraFim.value
+    dataHoraInicio: `${form.data.value}T${horaInicio}:00`,
+    dataHoraFim: `${form.data.value}T${horaFim}:00`
   };
   if (form.veiculoId.value) params.veiculoId = form.veiculoId.value;
 
@@ -316,6 +355,7 @@ document.getElementById("form-aulas").addEventListener("submit", async (e) => {
 });
 
 // ================= Arranque =================
+popularHorarios();
 carregarAlunos();
 carregarInstrutores();
 carregarVeiculos();
