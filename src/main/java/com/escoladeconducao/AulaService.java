@@ -56,4 +56,13 @@ public class AulaService {
         aula.setEstado(estado);
         return aula;
     }
+    
+    @Transactional
+    public boolean delete(int id) {
+    if (aulaRepository.getById(id) == null) {
+        return false;
+    }
+    aulaRepository.delete(id);
+    return true;
+    }   
 }

@@ -58,4 +58,13 @@ public class AulaController {
         }
         return Response.ok(aula).build();
     }
+
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int id) {
+    if (!aulaService.delete(id)) {
+        return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    return Response.noContent().build();
+    }
 }

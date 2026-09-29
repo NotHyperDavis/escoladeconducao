@@ -50,4 +50,11 @@ public class AulaRepository {
                 .getSingleResult();
         return total > 0;
     }
+
+    public void delete(int id) {
+    Aula aula = getById(id);
+    if (aula != null) {
+        em.remove(aula);
+        }
+    }
 }
