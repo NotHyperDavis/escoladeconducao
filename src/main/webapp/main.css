@@ -42,6 +42,7 @@ main { padding: 24px; max-width: 950px; margin: 0 auto; }
 section { display: none; }
 section.active { display: block; }
 section h2 { margin-top: 0; }
+section h3 { margin-top: 24px; }
 
 form.form-registo {
   display: flex;
@@ -97,6 +98,7 @@ td button {
 }
 td button.editar { background: #f1c40f; }
 td button.apagar { background: #e74c3c; color: #fff; }
+td button.cancelar-aula { background: #e67e22; color: #fff; }
 
 select.estado-select {
   padding: 4px;
@@ -110,3 +112,77 @@ select.estado-select {
 }
 .msg.ok { color: #16a34a; }
 .msg.erro { color: #dc2626; }
+
+#painel-sem-sessao {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.aviso-leitura {
+  font-size: 0.9rem;
+  color: #666;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+/* ---------- Acesso (Aulas) ---------- */
+.auth-box {
+  background: #eef2f7;
+  border: 1px solid #ccd6e0;
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.auth-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.auth-tab-btn {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.auth-tab-btn.active {
+  background: #2c3e50;
+  color: #fff;
+  border-color: #2c3e50;
+}
+.auth-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.auth-form input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.auth-form button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  background: #2c3e50;
+  color: #fff;
+  cursor: pointer;
+}
+#auth-logado {
+  font-size: 0.9rem;
+}
+#auth-logado button {
+  margin-left: 10px;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  background: #e74c3c;
+  color: #fff;
+  cursor: pointer;
+}

@@ -3,7 +3,6 @@ package com.escoladeconducao;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.ws.rs.core.MediaType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,12 +16,26 @@ public class AulaRepository {
         return em.createQuery("select a from Aula a", Aula.class).getResultList();
     }
 
+    public List<Aula> getByAluno(int alunoId) {
+        return em.createQuery(
+                "select a from Aula a where a.aluno.id = :alunoId order by a.dataHoraInicio", Aula.class)
+                .setParameter("alunoId", alunoId)
+                .getResultList();
+    }
+
     public Aula getById(int id) {
         return em.find(Aula.class, id);
     }
 
     public void create(Aula aula) {
         em.persist(aula);
+    }
+
+    public void delete(int id) {
+        Aula aula = getById(id);
+        if (aula != null) {
+            em.remove(aula);
+        }
     }
 
     public boolean existeConflitoInstrutor(Instrutor instrutor, LocalDateTime inicio, LocalDateTime fim) {
@@ -49,12 +62,5 @@ public class AulaRepository {
                 .setParameter("fim", fim)
                 .getSingleResult();
         return total > 0;
-    }
-
-    public void delete(int id) {
-    Aula aula = getById(id);
-    if (aula != null) {
-        em.remove(aula);
-        }
     }
 }

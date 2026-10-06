@@ -14,9 +14,26 @@ public class AulaController {
     @Inject
     private AulaService aulaService;
 
+    @Inject
+    private AuthService authService;
+
     @GET
     public Response getAll() {
         List<Aula> aulas = aulaService.getAll();
+        return Response.ok(aulas).build();
+    }
+
+    @GET
+    @Path("/minhas")
+    public Response getMinhas(@HeaderParam("Authorization") String authHeader) {
+        Utilizador utilizador = authService.getUtilizadorAutenticado(authHeader);
+        if (utilizador == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        if (utilizador.getTipo() != Utilizador.Tipo.ALUNO || utilizador.getAluno() == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        List<Aula> aulas = aulaService.getByAluno(utilizador.getAluno().getId());
         return Response.ok(aulas).build();
     }
 

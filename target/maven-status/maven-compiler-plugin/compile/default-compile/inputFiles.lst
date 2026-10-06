@@ -7,11 +7,17 @@
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/AulaController.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/AulaRepository.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/AulaService.java
+/mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/AuthService.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/ConflitoAgendamentoException.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/Instrutor.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/InstrutorController.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/InstrutorRepository.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/InstrutorService.java
+/mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/LoginController.java
+/mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/SessaoResponse.java
+/mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/Utilizador.java
+/mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/UtilizadorController.java
+/mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/UtilizadorRepository.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/Veiculo.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/VeiculoController.java
 /mnt/c/Users/tatia/projetos/escoladeconducao/src/main/java/com/escoladeconducao/VeiculoRepository.java

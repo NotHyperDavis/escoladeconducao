@@ -22,6 +22,10 @@ public class AulaService {
         return aulaRepository.getAll();
     }
 
+    public List<Aula> getByAluno(int alunoId) {
+        return aulaRepository.getByAluno(alunoId);
+    }
+
     public Aula getById(int id) {
         return aulaRepository.getById(id);
     }
@@ -56,13 +60,13 @@ public class AulaService {
         aula.setEstado(estado);
         return aula;
     }
-    
+
     @Transactional
     public boolean delete(int id) {
-    if (aulaRepository.getById(id) == null) {
-        return false;
+        if (aulaRepository.getById(id) == null) {
+            return false;
+        }
+        aulaRepository.delete(id);
+        return true;
     }
-    aulaRepository.delete(id);
-    return true;
-    }   
 }

@@ -22,4 +22,11 @@ public class AlunoRepository {
     public void create(Aluno aluno) {
         em.persist(aluno);
     }
+
+    public void delete(int id) {
+        Aluno aluno = getById(id);
+        if (aluno != null) {
+            em.remove(aluno);
+        }
+    }
 }

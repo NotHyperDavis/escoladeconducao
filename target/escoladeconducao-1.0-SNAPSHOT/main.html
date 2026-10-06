@@ -12,10 +12,10 @@
 </header>
 
 <nav>
-  <button class="tab-btn" data-tab="aulas">Aulas</button>
   <button class="tab-btn active" data-tab="alunos">Alunos</button>
   <button class="tab-btn" data-tab="instrutores">Instrutores</button>
   <button class="tab-btn" data-tab="veiculos">Veículos</button>
+  <button class="tab-btn" data-tab="aulas">Aulas</button>
 </nav>
 
 <main>
@@ -24,6 +24,7 @@
   <section id="alunos" class="active">
     <h2>Alunos</h2>
     <div class="msg" id="msg-alunos"></div>
+    <p class="aviso-leitura" id="aviso-alunos"></p>
     <form class="form-registo" id="form-alunos">
       <input type="hidden" name="id">
       <input type="text" name="nome" placeholder="Nome" required>
@@ -42,6 +43,7 @@
   <section id="instrutores">
     <h2>Instrutores</h2>
     <div class="msg" id="msg-instrutores"></div>
+    <p class="aviso-leitura" id="aviso-instrutores">Modo só de leitura. Para criar, editar ou apagar instrutores, inicia sessão como admin na aba "Aulas".</p>
     <form class="form-registo" id="form-instrutores">
       <input type="hidden" name="id">
       <input type="text" name="nome" placeholder="Nome" required>
@@ -59,6 +61,7 @@
   <section id="veiculos">
     <h2>Veículos</h2>
     <div class="msg" id="msg-veiculos"></div>
+    <p class="aviso-leitura" id="aviso-veiculos">Modo só de leitura. Para criar, editar ou apagar veículos, inicia sessão como admin na aba "Aulas".</p>
     <form class="form-registo" id="form-veiculos">
       <input type="hidden" name="id">
       <input type="text" name="matricula" placeholder="Matrícula" required>
@@ -76,36 +79,85 @@
   <!-- AULAS -->
   <section id="aulas">
     <h2>Aulas</h2>
+
+    <!-- Acesso (opcional, só necessário para marcar/aprovar aulas) -->
+    <div class="auth-box" id="auth-box">
+      <div id="auth-anonimo">
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab-btn active" data-auth-tab="entrar">Entrar</button>
+          <button type="button" class="auth-tab-btn" data-auth-tab="registo">Criar conta de aluno</button>
+        </div>
+
+        <form id="form-entrar" class="auth-form">
+          <input type="text" name="username" placeholder="Utilizador">
+          <input type="password" name="password" placeholder="Password">
+          <button type="submit">Entrar</button>
+        </form>
+
+        <form id="form-registo-aluno" class="auth-form" style="display:none">
+          <input type="text" name="nome" placeholder="Nome" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="text" name="telefone" placeholder="Telefone" required>
+          <input type="text" name="username" placeholder="Utilizador" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <button type="submit">Criar conta</button>
+        </form>
+
+        <div class="msg erro" id="msg-auth"></div>
+      </div>
+
+      <div id="auth-logado" style="display:none">
+        Sessão: <strong id="auth-nome"></strong> (<span id="auth-tipo"></span>)
+        <button type="button" id="btn-auth-logout">Sair</button>
+      </div>
+    </div>
+
     <div class="msg" id="msg-aulas"></div>
-    <form class="form-registo" id="form-aulas">
-      <select name="alunoId" required>
-        <option value="">Aluno...</option>
-      </select>
-      <select name="instrutorId" required>
-        <option value="">Instrutor...</option>
-      </select>
-      <select name="veiculoId">
-        <option value="">Sem veículo (teórica)</option>
-      </select>
-      <select name="tipo">
-        <option value="TEORICA">Teórica</option>
-        <option value="PRATICA">Prática</option>
-      </select>
-      <input type="date" name="data" required>
-      <select name="horario" required>
-        <option value="">Horário...</option>
-      </select>
-      <button type="submit">Marcar aula</button>
-    </form>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th><th>Aluno</th><th>Instrutor</th><th>Veículo</th>
-          <th>Tipo</th><th>Início</th><th>Fim</th><th>Estado</th><th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="tabela-aulas"></tbody>
-    </table>
+
+    <!-- Sem sessão -->
+    <p id="painel-sem-sessao">Entrar ou criar conta (em cima) é só necessário para marcar, cancelar ou aprovar aulas.</p>
+
+    <!-- Painel ADMIN -->
+    <div id="painel-admin" style="display:none">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Aluno</th><th>Instrutor</th><th>Veículo</th>
+            <th>Tipo</th><th>Início</th><th>Fim</th><th>Estado</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-aulas-admin"></tbody>
+      </table>
+    </div>
+
+    <!-- Painel ALUNO -->
+    <div id="painel-aluno" style="display:none">
+      <form class="form-registo" id="form-aulas">
+        <select name="instrutorId" required>
+          <option value="">Instrutor...</option>
+        </select>
+        <select name="veiculoId">
+          <option value="">Sem veículo (teórica)</option>
+        </select>
+        <select name="tipo">
+          <option value="TEORICA">Teórica</option>
+          <option value="PRATICA">Prática</option>
+        </select>
+        <input type="date" name="data" required>
+        <select name="horario" required>
+          <option value="">Horário...</option>
+        </select>
+        <button type="submit">Marcar aula</button>
+      </form>
+      <h3>As minhas aulas</h3>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Instrutor</th><th>Veículo</th><th>Tipo</th><th>Início</th><th>Fim</th><th>Estado</th><th>Ações</th></tr>
+        </thead>
+        <tbody id="tabela-aulas-aluno"></tbody>
+      </table>
+    </div>
+
   </section>
 
 </main>
