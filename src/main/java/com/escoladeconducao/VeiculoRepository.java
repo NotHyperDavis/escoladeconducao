@@ -21,4 +21,11 @@ public class VeiculoRepository {
     public void create(Veiculo veiculo) {
         em.persist(veiculo);
     }
+
+    public void delete(int id) {
+        Veiculo veiculo = getById(id);
+        if (veiculo != null) {
+            em.remove(veiculo);
+        }
+    }
 }

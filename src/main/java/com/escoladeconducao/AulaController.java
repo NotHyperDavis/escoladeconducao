@@ -49,17 +49,28 @@ public class AulaController {
 
     @POST
     public Response create(
-        @QueryParam("alunoId") int alunoId,
+        @HeaderParam("Authorization") String authHeader,
         @QueryParam("instrutorId") int instrutorId,
         @QueryParam("veiculoId") Integer veiculoId,
         @QueryParam("tipo") Aula.Tipo tipo,
         @QueryParam("dataHoraInicio") String dataHoraInicio,
         @QueryParam("dataHoraFim") String dataHoraFim
     ) {
+        Utilizador utilizador = authService.getUtilizadorAutenticado(authHeader);
+        if (utilizador == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        if (utilizador.getTipo() != Utilizador.Tipo.ALUNO || utilizador.getAluno() == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        if (tipo == Aula.Tipo.TEORICA && veiculoId != null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Aulas teóricas não têm veículo associado.").build();
+        }
         try {
             LocalDateTime inicio = LocalDateTime.parse(dataHoraInicio);
             LocalDateTime fim = LocalDateTime.parse(dataHoraFim);
-            Aula aula = aulaService.create(alunoId, instrutorId, veiculoId, tipo, inicio, fim);
+            Aula aula = aulaService.create(utilizador.getAluno().getId(), instrutorId, veiculoId, tipo, inicio, fim);
             return Response.status(Response.Status.CREATED).entity(aula).build();
         } catch (ConflitoAgendamentoException e) {
             return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();

@@ -22,4 +22,11 @@ public class InstrutorRepository {
     public void create(Instrutor instrutor) {
         em.persist(instrutor);
     }
+
+    public void delete(int id) {
+        Instrutor instrutor = getById(id);
+        if (instrutor != null) {
+            em.remove(instrutor);
+        }
+    }
 }

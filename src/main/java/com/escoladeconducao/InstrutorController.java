@@ -19,6 +19,16 @@ public class InstrutorController {
         return Response.ok(instrutores).build();
     }
 
+    @GET
+    @Path("/{id}")
+    public Response getById(@PathParam("id") int id) {
+        Instrutor instrutor = instrutorService.getById(id);
+        if (instrutor == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(instrutor).build();
+    }
+
     @POST
     public Response create(
         @QueryParam("nome") String nome,
@@ -26,5 +36,28 @@ public class InstrutorController {
     ) {
         Instrutor instrutor = instrutorService.create(nome, categoriasHabilitado);
         return Response.status(Response.Status.CREATED).entity(instrutor).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response update(
+        @PathParam("id") int id,
+        @QueryParam("nome") String nome,
+        @QueryParam("categoriasHabilitado") String categoriasHabilitado
+    ) {
+        Instrutor instrutor = instrutorService.update(id, nome, categoriasHabilitado);
+        if (instrutor == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(instrutor).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int id) {
+        if (!instrutorService.delete(id)) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.noContent().build();
     }
 }

@@ -534,6 +534,20 @@ async function mudarEstadoAula(id, estado, recarregar) {
   recarregar();
 }
 
+// Esconde o campo de veículo quando o tipo escolhido é "Teórica"
+// (aulas teóricas não têm veículo associado).
+function atualizarCampoVeiculo() {
+  const form = document.getElementById("form-aulas");
+  const selectTipo = form.querySelector('select[name="tipo"]');
+  const selectVeiculo = form.querySelector('select[name="veiculoId"]');
+  const teorica = selectTipo.value === "TEORICA";
+  selectVeiculo.disabled = teorica;
+  selectVeiculo.style.display = teorica ? "none" : "";
+  if (teorica) selectVeiculo.value = "";
+}
+
+document.querySelector('#form-aulas select[name="tipo"]').addEventListener("change", atualizarCampoVeiculo);
+
 // ---- Marcar nova aula (painel do aluno) ----
 document.getElementById("form-aulas").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -571,6 +585,7 @@ document.getElementById("form-aulas").addEventListener("submit", async (e) => {
 
 // ================= Arranque =================
 popularHorarios();
+atualizarCampoVeiculo();
 carregarAlunos();
 carregarInstrutores();
 carregarVeiculos();

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="escolaDB" type="DataSource">
+    JdbcDriver org.mariadb.jdbc.Driver
+    JdbcUrl jdbc:mariadb://localhost:3306/escolaconducao
+    UserName escola_user
+    Password escola123
+    JtaManaged true
+  </Resource>
+</resources>
